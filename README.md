@@ -1,44 +1,25 @@
 # **Welcome to the DIALOGUE!**
 
-DIALOGUE is a dimensionality reduction approach that uses cross-cell-type associations to identify multicellular programs and map the cell transcriptome as a function of its environment. Given single-cell data, it combines penalized matrix decomposition with multilevel modeling, to identify generalizable multicellular programs and examines their association with specific phenotypes of interest. By doing so it also robustly recovers spatial information and can characterize the cell environment based only based on its transcriptome.
+DIALOGUE is a dimensionality reduction method that uses cross-cell-type associations to identify multicellular programs (MCPs) and map the cell transcriptome as a function of its environment. Given single-cell data, it combines penalized matrix decomposition with multilevel modeling to identify generalizable MCPs and examines their association with specific phenotypes of interest.
 
-# **Requirements**
-
-* R (tested in R version 3.4.0).
-* R libraries: lme4, lmerTest, PMA, plyr, matrixStats, psych, stringi, RColorBrewer, unikn, reshape2, ggplot2
+<img src="https://github.com/livnatje/DIALOGUE/blob/master/Images/DIALOGUE_overview.png" width=900 />
 
 # **Quick start**
 
-To install you can either use ```devtools::install_github("DIALOGUE",your_user_name)``` or ```devtools::install("DIALOGUE")```
+To install DIALOGUE you can either use [```devtools::install_github("DIALOGUE",username)```](https://www.rdocumentation.org/packages/devtools/versions/1.13.6/topics/install_github) or just download its R package and use ```devtools::install("DIALOGUE")```
 
-The data for testing is provided in the 
-[Single Cell Portal](https://singlecell.broadinstitute.org/single_cell/study/SCP958/dialogue#study-download)
-(make sure to download and uncompress the package to the DIALOGUE directory).
+The **input** consistes of single-cell transcriptomes of different cell types, usually together with a more compact representation (e.g., PCs). The **output** will be multicellular programs (MCPs) of co-regulated genes across the different cell types, their expression across the cells, and association with specific phenotype(s) of interest. Each MCP consists of multiple cell-type-specific gene subsets.
 
-To run a toy example, download the toy example data
-```
-rA<-readRDS(system.file("extdata", "toy.example.rds", package = "DIALOGUE"))
-```
-Find multicellular programs:
-```
-R<-DIALOGUE.run(rA = rA,main = "toy.example",k = 2,results.dir = "DIALOGUE.results/")
-```
-``k`` denotes the number of multicellular programs (MCPs) that will be identified. The different MCPs are not correlated with one another, and the cross-cell-type correlations observed within an MCP usually decreases with k, such that the first few MCPs depict most of the multicellular co-expression. DIALOGUE will always find the same MCPs or a subset of them, no matter which k is used.
+For specific cell-cell "interactions" you can run the pairwise version, using the data of two cell types of interest as input. DIALOGUE can also identify MCPs that span multiple cell types (as we show in our pre-print **_Jerby-Arnon and Regev bioRxiv 2020_**).
 
+See the [tutorial](https://github.com/livnatje/DIALOGUE/wiki/Tutorial) for more details.
 
-You can also reproduce the colon/IBD multicellular program reported in our paper using the following code 
-```
-rA<-readRDS(system.file("extdata", "IBD.data.rds", package = "DIALOGUE"))
-R<-DIALOGUE.run(rA = rA,main = "IBD",k = 2,results.dir = "DIALOGUE.results/")
-```
+### **Requirements**
 
-See ```?DIALOGUE::DIALOGUE.run``` for more information.
-
-# General notes
-
-DIALOGUE will identify multicellular programs, such that each program will have different cell-type-specific components. It will generate figures to depict the association between the different cell-type-components of each multicellular program.
+* R (tested in R version 3.4.0).
+* R libraries: lme4, lmerTest, PMA, plyr, matrixStats, psych, stringi, RColorBrewer, unikn, reshape2, ggplot2, grid, beanplot
 
 # Citation
 
-Jerby-Arnon and Regev _**Mapping multicellular programs from single-cell transcriptomes**_.
+Jerby-Arnon and Regev. Mapping multicellular programs from single-cell profiles. _bioRxiv_ (2020).
 
